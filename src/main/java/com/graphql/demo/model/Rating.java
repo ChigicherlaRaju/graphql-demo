@@ -2,23 +2,46 @@ package com.graphql.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The Enum Rating.
+ */
 public enum Rating {
 
-   FIVE_STARS("⭐️⭐️⭐️⭐️⭐️️️️"),
-   FOUR_STARS("⭐️⭐️⭐️⭐️"),
-   THREE_STARS("⭐️⭐️⭐️"),
-   TWO_STARS("⭐️⭐️"),
-   ONE_STAR("⭐️");
+  /** The five stars. */
+  FIVE_STARS("⭐️⭐️⭐️⭐️⭐️️️️"),
 
-   private String star;
+  /** The four stars. */
+  FOUR_STARS("⭐️⭐️⭐️⭐️"),
 
-   Rating(String star) {
-      this.star = star;
-   }
+  /** The three stars. */
+  THREE_STARS("⭐️⭐️⭐️"),
 
-   @JsonValue
-   public String getStar() {
-      return star;
-   }
+  /** The two stars. */
+  TWO_STARS("⭐️⭐️"),
+
+  /** The one star. */
+  ONE_STAR("⭐️");
+
+  /** The star. */
+  private String star;
+
+  /**
+   * Instantiates a new rating.
+   *
+   * @param star the star
+   */
+  Rating(String star) {
+    this.star = star;
+  }
+
+  /**
+   * Gets the star.
+   *
+   * @return the star
+   */
+  @JsonValue
+  public String getStar() {
+    return star;
+  }
 
 }

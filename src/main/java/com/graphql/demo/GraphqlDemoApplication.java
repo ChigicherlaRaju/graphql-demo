@@ -3,11 +3,20 @@ package com.graphql.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * The Class GraphqlDemoApplication.
+ */
 @SpringBootApplication
 public class GraphqlDemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GraphqlDemoApplication.class, args);
-	}
+  /**
+   * The main method.
+   *
+   * @param args the arguments
+   */
+  @SuppressWarnings("resource")
+  public static void main(String[] args) {
+    SpringApplication.run(GraphqlDemoApplication.class, args);
+  }
 
 }

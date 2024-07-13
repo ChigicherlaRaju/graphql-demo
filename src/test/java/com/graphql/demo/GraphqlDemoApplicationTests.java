@@ -3,11 +3,16 @@ package com.graphql.demo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * The Class GraphqlDemoApplicationTests.
+ */
 @SpringBootTest
 class GraphqlDemoApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+  /**
+   * Context loads.
+   */
+  @Test
+  void contextLoads() {}
 
 }

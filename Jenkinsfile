@@ -69,7 +69,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Building Docker image ${DOCKER_IMAGE_NAME}..."
+                    echo "Building Docker image ${DOCKER_IMAGE}..."
                     sh 'docker build -t ${DOCKER_IMAGE}:latest .'
                 }
             }
@@ -81,7 +81,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo 'Pushing Docker image ${DOCKER_IMAGE_NAME}...'
+                    echo 'Pushing Docker image ${DOCKER_IMAGE}...'
                     withDockerRegistry([credentialsId: 'DOCKER_CREDENTIALS', url: 'https://index.docker.io/v1/']) {
                         sh 'docker push ${DOCKER_IMAGE}:latest'
                     }

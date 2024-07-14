@@ -14,8 +14,6 @@ pipeline {
         SONAR_PROJECT_KEY = 'your_sonar_project_key'
         SONAR_HOST_URL = 'http://localhost:9000'
         REPO_URL = 'https://github.com/ChigicherlaRaju/graphql-demo.git'
-        MAVEN_HOME = tool name: 'Maven', type: 'maven'
-        JAVA_HOME = tool name: 'JDK', type: 'jdk'
     }
 
     stages {

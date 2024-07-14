@@ -75,8 +75,8 @@ pipeline {
             steps {
                 script {
                     echo 'Pushing Docker image ${DOCKER_IMAGE_NAME}...'
-                    withDockerRegistry([credentialsId: 'DOCKER_CREDENTIALS', url: 'https://index.docker.io/v2/']) {
-                        sh "docker push ${DOCKER_IMAGE}:latest"
+                    withDockerRegistry([credentialsId: 'DOCKER_CREDENTIALS', url: 'https://index.docker.io/v1/']) {
+                        sh 'docker push ${DOCKER_IMAGE}:latest'
                     }
                 }
             }

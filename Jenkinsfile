@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         APP_NAME = 'graphql-demo'
-        DOCKER_IMAGE = "chigicherlaraju/${APP_NAME}:latest"
+        DOCKER_IMAGE = "chigicherlaraju/${APP_NAME}"
         SONAR_PROJECT_TOKEN = 'your_sonar_project_token'
         SONAR_PROJECT_KEY = 'your_sonar_project_key'
         SONAR_HOST_URL = 'http://localhost:9000'
@@ -17,13 +17,15 @@ pipeline {
     }
 
     stages {
-        stage('Verify Java, Maven & Git versions') {
+        stage('Verify Basic Details') {
             steps {
                 script {
                     echo "JAVA_HOME: ${env.JAVA_HOME}"
                     echo "MAVEN_HOME: ${env.MAVEN_HOME}"
-                    sh 'git --version'
                     echo "Branch name is: ${env.BRANCH_NAME}"
+                    sh 'git --version'
+                    sh 'java -version'
+                    sh 'mvn --version'
                 }
             }
         }

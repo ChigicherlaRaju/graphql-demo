@@ -14,14 +14,16 @@ pipeline {
         SONAR_PROJECT_KEY = 'your_sonar_project_key'
         SONAR_HOST_URL = 'http://localhost:9000'
         REPO_URL = 'https://github.com/ChigicherlaRaju/graphql-demo.git'
+        MAVEN_HOME = tool name: 'Maven', type: 'maven'
+        JAVA_HOME = tool name: 'JDK', type: 'jdk'
     }
 
     stages {
         stage('Verify Java, Maven & Git versions') {
             steps {
                 script {
-                    sh 'java -version'
-                    sh 'mvn -version'
+                    echo "JAVA_HOME: ${env.JAVA_HOME}"
+                    echo "MAVEN_HOME: ${env.MAVEN_HOME}"
                     sh 'git --version'
                     echo "Branch name is: ${env.BRANCH_NAME}"
                 }
@@ -45,7 +47,7 @@ pipeline {
                 script {
                     echo 'echo "Executing test cases & Publishing Sonar report...'
                     withSonarQubeEnv('SonarQube') {
-                        sh 'mvn --e -X clean verify sonar:sonar \
+                        sh 'mvn --e -X -U clean verify sonar:sonar \
                             -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} \
                             -Dsonar.host.url=${env.SONAR_HOST_URL} \
                             -Dsonar.login=${env.SONAR_PROJECT_TOKEN}'

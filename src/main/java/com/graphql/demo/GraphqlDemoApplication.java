@@ -14,7 +14,6 @@ public class GraphqlDemoApplication {
    *
    * @param args the arguments
    */
-  @SuppressWarnings("resource")
   public static void main(String[] args) {
     SpringApplication.run(GraphqlDemoApplication.class, args);
   }

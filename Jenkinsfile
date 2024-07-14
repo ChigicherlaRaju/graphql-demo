@@ -4,6 +4,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'RUN_TESTS', defaultValue: false, description: 'Enable to run tests and Sonar analysis')
+        booleanParam(name: 'RUN_DOCKER', defaultValue: false, description: 'Enable to create/publish the Docker image')
     }
 
     environment {
@@ -63,6 +64,9 @@ pipeline {
         }
 
         stage('Build Docker image') {
+            when {
+                expression { return params.RUN_DOCKER }
+            }
             steps {
                 script {
                     echo "Building Docker image ${DOCKER_IMAGE_NAME}..."
@@ -72,6 +76,9 @@ pipeline {
         }
 
         stage('Push Docker image') {
+            when {
+                expression { return params.RUN_DOCKER }
+            }
             steps {
                 script {
                     echo 'Pushing Docker image ${DOCKER_IMAGE_NAME}...'

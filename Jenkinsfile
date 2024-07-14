@@ -4,6 +4,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'RUN_TESTS', defaultValue: false, description: 'Enable to run tests and Sonar analysis')
+        booleanParam(name: 'RUN_DOCKER', defaultValue: false, description: 'Enable to create/publish the Docker image')
     }
 
     environment {
@@ -13,14 +14,16 @@ pipeline {
         SONAR_PROJECT_KEY = 'your_sonar_project_key'
         SONAR_HOST_URL = 'http://localhost:9000'
         REPO_URL = 'https://github.com/ChigicherlaRaju/graphql-demo.git'
+        MAVEN_HOME = tool name: 'Maven', type: 'maven'
+        JAVA_HOME = tool name: 'JDK', type: 'jdk'
     }
 
     stages {
         stage('Verify Java, Maven & Git versions') {
             steps {
                 script {
-                    sh 'java -version'
-                    sh 'mvn -version'
+                    echo "JAVA_HOME: ${env.JAVA_HOME}"
+                    echo "MAVEN_HOME: ${env.MAVEN_HOME}"
                     sh 'git --version'
                     echo "Branch name is: ${env.BRANCH_NAME}"
                 }
@@ -44,7 +47,7 @@ pipeline {
                 script {
                     echo 'echo "Executing test cases & Publishing Sonar report...'
                     withSonarQubeEnv('SonarQube') {
-                        sh 'mvn --e -X clean verify sonar:sonar \
+                        sh 'mvn --e -X -U clean verify sonar:sonar \
                             -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} \
                             -Dsonar.host.url=${env.SONAR_HOST_URL} \
                             -Dsonar.login=${env.SONAR_PROJECT_TOKEN}'
@@ -63,6 +66,9 @@ pipeline {
         }
 
         stage('Build Docker image') {
+            when {
+                expression { return params.RUN_DOCKER }
+            }
             steps {
                 script {
                     echo "Building Docker image ${DOCKER_IMAGE_NAME}..."
@@ -72,6 +78,9 @@ pipeline {
         }
 
         stage('Push Docker image') {
+            when {
+                expression { return params.RUN_DOCKER }
+            }
             steps {
                 script {
                     echo 'Pushing Docker image ${DOCKER_IMAGE_NAME}...'
